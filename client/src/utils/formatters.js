@@ -36,7 +36,7 @@ export const renderStars = (rating) => {
 };
 
 export const generateConfirmationCode = () => {
-  return 'TB' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substr(2, 5).toUpperCase();
+  return 'TB' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 7).toUpperCase();
 };
 
 export const getInitials = (name) => {

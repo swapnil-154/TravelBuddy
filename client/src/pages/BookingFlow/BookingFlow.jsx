@@ -20,7 +20,7 @@ const BookingFlow = () => {
   };
 
   const confirmBooking = () => {
-    const code = 'TB' + Math.random().toString(36).substr(2, 8).toUpperCase();
+    const code = 'TB' + Math.random().toString(36).slice(2, 10).toUpperCase();
     setConfirmed({ code, date: new Date().toLocaleDateString() });
     dispatch({
       type: 'bookings/createBooking',

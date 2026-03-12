@@ -46,8 +46,13 @@ export const validateExpiry = (expiry) => {
   const re = /^(0[1-9]|1[0-2])\/\d{2}$/;
   if (!re.test(expiry)) return false;
   const [month, year] = expiry.split('/');
-  const expiryDate = new Date(2000 + parseInt(year), parseInt(month) - 1);
-  return expiryDate > new Date();
+  const now = new Date();
+  const currentYear = now.getFullYear() % 100;
+  const currentMonth = now.getMonth() + 1;
+  const expiryYear = parseInt(year, 10);
+  const expiryMonth = parseInt(month, 10);
+  // Card is valid if expiry year > current year, or same year and expiry month >= current month
+  return expiryYear > currentYear || (expiryYear === currentYear && expiryMonth >= currentMonth);
 };
 
 export const validateRequired = (value) => {
