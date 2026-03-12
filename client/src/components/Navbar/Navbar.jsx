@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
@@ -7,6 +7,8 @@ import './Navbar.css';
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -17,8 +19,19 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const handleLogout = () => {
     dispatch(logout());
+    setDropdownOpen(false);
     navigate('/');
   };
 
@@ -68,8 +81,11 @@ const Navbar = () => {
 
           <div className="navbar-actions d-flex align-items-center gap-3">
             {user ? (
-              <div className="dropdown">
-                <button className="btn btn-user dropdown-toggle" data-bs-toggle="dropdown">
+              <div className="dropdown" ref={dropdownRef}>
+                <button
+                  className="btn btn-user dropdown-toggle"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
                   <div className="user-avatar">
                     {user.avatar && user.avatar.startsWith('http') ? (
                       <img src={user.avatar} alt={user.name} />
@@ -79,9 +95,31 @@ const Navbar = () => {
                   </div>
                   <span className="user-name d-none d-lg-inline">{user.name?.split(' ')[0]}</span>
                 </button>
-                <ul className="dropdown-menu dropdown-menu-end">
-                  <li><Link className="dropdown-item" to="/my-trips"><i className="fas fa-suitcase me-2"></i>My Trips</Link></li>
-                  <li><Link className="dropdown-item" to="/profile"><i className="fas fa-user me-2"></i>Profile</Link></li>
+                <ul className={`dropdown-menu dropdown-menu-end ${dropdownOpen ? 'show' : ''}`}>
+                  {user.role === 'admin' && (
+                    <li>
+                      <Link className="dropdown-item" to="/admin" onClick={() => setDropdownOpen(false)}>
+                        <i className="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+                      </Link>
+                    </li>
+                  )}
+                  {user.role === 'agent' && (
+                    <li>
+                      <Link className="dropdown-item" to="/agent" onClick={() => setDropdownOpen(false)}>
+                        <i className="fas fa-headset me-2"></i>Agent Dashboard
+                      </Link>
+                    </li>
+                  )}
+                  <li>
+                    <Link className="dropdown-item" to="/my-trips" onClick={() => setDropdownOpen(false)}>
+                      <i className="fas fa-suitcase me-2"></i>My Trips
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/profile" onClick={() => setDropdownOpen(false)}>
+                      <i className="fas fa-user me-2"></i>Profile
+                    </Link>
+                  </li>
                   <li><hr className="dropdown-divider" /></li>
                   <li>
                     <button className="dropdown-item text-danger" onClick={handleLogout}>

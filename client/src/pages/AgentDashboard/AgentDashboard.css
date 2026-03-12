@@ -1,0 +1,8 @@
+.agent-dashboard { padding-top: 80px; min-height: 100vh; background: #f0f2f5; }
+.agent-hero {
+  background: linear-gradient(135deg, #0984e3 0%, #6c5ce7 100%);
+  padding: 40px 0;
+  color: white;
+}
+.agent-hero h1 { font-size: 2rem; margin-bottom: 5px; }
+.agent-hero p { color: rgba(255,255,255,0.7); margin: 0; }
