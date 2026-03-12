@@ -281,6 +281,19 @@ const seedDB = async () => {
 
     console.log('\n✅ Database seeded successfully!');
     console.log('Admin login: admin@travelbuddy.com / Admin@123');
+
+    const agentExists = await User.findOne({ email: 'agent@travelbuddy.com' });
+    if (!agentExists) {
+      const agent = await User.create({
+        name: 'Agent User',
+        email: 'agent@travelbuddy.com',
+        password: 'Agent@123',
+        role: 'agent',
+      });
+      console.log('Agent user created:', agent.email);
+    }
+    console.log('Agent login: agent@travelbuddy.com / Agent@123');
+
     process.exit(0);
   } catch (error) {
     console.error('Seed error:', error);

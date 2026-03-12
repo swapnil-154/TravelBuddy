@@ -105,3 +105,10 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// @desc    Logout user
+// @route   POST /api/auth/logout
+// @access  Private
+exports.logout = async (req, res) => {
+  res.json({ success: true, message: 'Logged out successfully' });
+};

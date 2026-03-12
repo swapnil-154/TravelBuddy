@@ -19,6 +19,8 @@ import Profile from './pages/Profile/Profile';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import NotFound from './pages/NotFound/NotFound';
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
+import AgentDashboard from './pages/AgentDashboard/AgentDashboard';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import { loadUserFromToken } from './redux/slices/authSlice';
@@ -56,6 +58,12 @@ const App = () => {
         <Route path="/my-trips" element={<ProtectedRoute><MyTrips /></ProtectedRoute>} />
         <Route path="/booking" element={<ProtectedRoute><BookingFlow /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<ProtectedRoute roles={['admin']}><AdminDashboard /></ProtectedRoute>} />
+
+        {/* Agent Routes */}
+        <Route path="/agent" element={<ProtectedRoute roles={['agent']}><AgentDashboard /></ProtectedRoute>} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

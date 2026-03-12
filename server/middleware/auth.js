@@ -31,3 +31,19 @@ exports.admin = (req, res, next) => {
     res.status(403).json({ success: false, message: 'Not authorized as admin' });
   }
 };
+
+exports.agent = (req, res, next) => {
+  if (req.user && req.user.role === 'agent') {
+    next();
+  } else {
+    res.status(403).json({ success: false, message: 'Not authorized as agent' });
+  }
+};
+
+exports.adminOrAgent = (req, res, next) => {
+  if (req.user && (req.user.role === 'admin' || req.user.role === 'agent')) {
+    next();
+  } else {
+    res.status(403).json({ success: false, message: 'Not authorized as admin or agent' });
+  }
+};

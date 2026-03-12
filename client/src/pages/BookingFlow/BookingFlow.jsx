@@ -1,34 +1,71 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createBooking } from '../../redux/slices/bookingSlice';
+import api from '../../services/api';
 import './BookingFlow.css';
 
 const STEPS = ['Select', 'Details', 'Payment', 'Confirmation'];
 
 const BookingFlow = () => {
   const { selectedItem, bookingType } = useSelector((state) => state.bookings);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [details, setDetails] = useState({ firstName: '', lastName: '', email: '', phone: '', specialRequests: '' });
   const [payment, setPayment] = useState({ cardNumber: '', expiryDate: '', cvv: '', nameOnCard: '' });
   const [confirmed, setConfirmed] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const [paymentError, setPaymentError] = useState(null);
 
   const handleNext = () => {
     if (step < 3) setStep(step + 1);
     if (step === 2) confirmBooking();
   };
 
-  const confirmBooking = () => {
-    const code = 'TB' + Math.random().toString(36).slice(2, 10).toUpperCase();
-    setConfirmed({ code, date: new Date().toLocaleDateString() });
-    dispatch(createBooking({
-      type: bookingType,
-      totalCost: selectedItem?.totalPrice || selectedItem?.pricePerNight || 0,
-      details: { ...selectedItem },
-      passengerInfo: details,
-    }));
+  const confirmBooking = async () => {
+    setProcessing(true);
+    setPaymentError(null);
+
+    try {
+      const totalCost = selectedItem?.totalPrice || selectedItem?.pricePerNight || 0;
+
+      // Step 1: Create payment intent
+      const { data: paymentData } = await api.post('/payments/create-intent', {
+        amount: totalCost,
+        currency: 'usd',
+      });
+
+      // Step 2: Confirm payment
+      const { data: confirmData } = await api.post('/payments/confirm', {
+        paymentId: paymentData.paymentId,
+      });
+
+      if (confirmData.status === 'succeeded') {
+        // Step 3: Create booking with payment info via API
+        const { data: bookingData } = await api.post('/bookings', {
+          type: bookingType,
+          totalCost,
+          details: { ...selectedItem },
+          contactEmail: details.email,
+          contactPhone: details.phone,
+          paymentId: paymentData.paymentId,
+          paymentStatus: 'paid',
+          status: 'confirmed',
+        });
+
+        setConfirmed({
+          code: bookingData.booking.confirmationCode,
+          date: new Date().toLocaleDateString(),
+        });
+      } else {
+        setPaymentError('Payment could not be completed. Please try again.');
+        setStep(2);
+      }
+    } catch (error) {
+      setPaymentError(error.response?.data?.message || 'Payment processing failed. Please try again.');
+      setStep(2);
+    }
+
+    setProcessing(false);
   };
 
   if (!selectedItem) {
@@ -125,12 +162,21 @@ const BookingFlow = () => {
                         placeholder="Wheelchair, vegetarian meal, etc." />
                     </div>
                   </div>
+                  <div className="alert alert-info mt-3">
+                    <i className="fas fa-info-circle me-2"></i>
+                    A booking confirmation will be sent to your email and phone number.
+                  </div>
                 </div>
               )}
 
               {step === 2 && (
                 <div>
                   <h4>Payment Details</h4>
+                  {paymentError && (
+                    <div className="alert alert-danger">
+                      <i className="fas fa-exclamation-circle me-2"></i>{paymentError}
+                    </div>
+                  )}
                   <div className="card-visual">
                     <div className="card-chip"></div>
                     <div className="card-number">{payment.cardNumber || '•••• •••• •••• ••••'}</div>
@@ -162,6 +208,10 @@ const BookingFlow = () => {
                         onChange={(e) => setPayment({ ...payment, cvv: e.target.value })} />
                     </div>
                   </div>
+                  <div className="alert alert-success mt-3">
+                    <i className="fas fa-shield-alt me-2"></i>
+                    Your payment is processed securely. Card details are not stored.
+                  </div>
                 </div>
               )}
 
@@ -169,12 +219,15 @@ const BookingFlow = () => {
                 <div className="confirmation-section text-center">
                   <div className="confirmation-icon">✅</div>
                   <h3>Booking Confirmed!</h3>
-                  <p className="text-muted">Your booking has been confirmed successfully.</p>
+                  <p className="text-muted">Your booking has been confirmed and payment processed successfully.</p>
                   <div className="confirmation-code">
                     <span>Booking Reference</span>
                     <strong>{confirmed.code}</strong>
                   </div>
                   <p className="text-muted mt-2">Confirmation sent to <strong>{details.email}</strong></p>
+                  {details.phone && (
+                    <p className="text-muted">SMS notification sent to <strong>{details.phone}</strong></p>
+                  )}
                   <button className="btn btn-primary mt-4" onClick={() => navigate('/my-trips')}>
                     View My Trips
                   </button>
@@ -184,13 +237,18 @@ const BookingFlow = () => {
               {step < 3 && (
                 <div className="booking-nav mt-4">
                   {step > 0 && (
-                    <button className="btn btn-back" onClick={() => setStep(step - 1)}>
+                    <button className="btn btn-back" onClick={() => setStep(step - 1)} disabled={processing}>
                       <i className="fas fa-arrow-left me-2"></i>Back
                     </button>
                   )}
-                  <button className="btn btn-next-step ms-auto" onClick={handleNext}>
-                    {step === 2 ? 'Confirm & Pay' : 'Continue'}
-                    <i className="fas fa-arrow-right ms-2"></i>
+                  <button className="btn btn-next-step ms-auto" onClick={handleNext} disabled={processing}>
+                    {processing ? (
+                      <><span className="spinner-border spinner-border-sm me-2"></span>Processing Payment...</>
+                    ) : step === 2 ? (
+                      <><i className="fas fa-lock me-2"></i>Confirm & Pay</>
+                    ) : (
+                      <>Continue<i className="fas fa-arrow-right ms-2"></i></>
+                    )}
                   </button>
                 </div>
               )}

@@ -1,4 +1,7 @@
 const Booking = require('../models/Booking');
+const User = require('../models/User');
+const { sendBookingConfirmationEmail } = require('../services/emailService');
+const { sendBookingConfirmationSMS } = require('../services/smsService');
 
 // @desc    Get user bookings
 // @route   GET /api/bookings
@@ -35,7 +38,42 @@ exports.createBooking = async (req, res) => {
   try {
     const bookingData = { ...req.body, user: req.user.id };
     const booking = await Booking.create(bookingData);
-    res.status(201).json({ success: true, booking });
+
+    // Fetch user details for notifications
+    const user = await User.findById(req.user.id);
+    const notifications = {};
+
+    if (user) {
+      const emailResult = await sendBookingConfirmationEmail(
+        booking,
+        booking.contactEmail || user.email,
+        user.name
+      );
+      notifications.email = emailResult;
+
+      const smsResult = await sendBookingConfirmationSMS(
+        booking,
+        booking.contactPhone || user.phone,
+        user.name
+      );
+      notifications.sms = smsResult;
+    }
+
+    res.status(201).json({ success: true, booking, notifications });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get all bookings (admin)
+// @route   GET /api/bookings/all
+// @access  Private/Admin
+exports.getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate('user', 'name email role')
+      .sort({ createdAt: -1 });
+    res.json({ success: true, count: bookings.length, bookings });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
