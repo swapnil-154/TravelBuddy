@@ -58,6 +58,15 @@ const BookingSchema = new mongoose.Schema(
       enum: ['pending', 'paid', 'refunded'],
       default: 'pending',
     },
+    paymentId: {
+      type: String,
+    },
+    contactEmail: {
+      type: String,
+    },
+    contactPhone: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

@@ -28,8 +28,11 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['user', 'admin'],
+      enum: ['user', 'admin', 'agent'],
       default: 'user',
+    },
+    phone: {
+      type: String,
     },
     preferences: {
       travelStyle: { type: String, default: 'adventure' },
