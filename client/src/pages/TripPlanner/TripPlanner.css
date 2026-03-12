@@ -1,0 +1,236 @@
+.trip-planner-page { min-height: 100vh; }
+
+.planner-hero {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
+  padding: 8rem 0 3rem;
+}
+
+.planner-hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+.planner-hero p { opacity: 0.8; margin: 0; }
+
+.planner-sidebar {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  position: sticky;
+  top: 100px;
+}
+
+.sidebar-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid #f1f5f9; }
+
+.planner-sidebar label { font-size: 0.8rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; display: block; }
+
+.planner-sidebar .form-control {
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+.planner-sidebar .form-control:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+
+.btn-generate {
+  background: linear-gradient(135deg, #10b981, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-generate:hover { opacity: 0.9; color: white; }
+
+.budget-summary {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.budget-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.budget-item strong { color: #1e293b; }
+
+.budget-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.budget-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.btn-save-trip {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-save-trip:hover { opacity: 0.9; color: white; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,99,235,0.4); }
+
+.empty-itinerary {
+  background: white;
+  border-radius: 20px;
+  padding: 4rem 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.empty-itinerary-icon { font-size: 5rem; margin-bottom: 1rem; }
+
+.itinerary-builder {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.itinerary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.itinerary-header h4 { font-weight: 700; margin: 0; color: #1e293b; }
+.day-count { background: #f0f9ff; color: #1d4ed8; padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; }
+
+.day-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.day-tab {
+  border: 2px solid #e2e8f0;
+  background: white;
+  color: #64748b;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.day-tab.active, .day-tab:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border-color: transparent;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.day-title-input {
+  border: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e293b;
+  outline: none;
+  flex: 1;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.day-title-input:focus { background: #f8fafc; }
+.day-date { font-size: 0.85rem; color: #94a3b8; white-space: nowrap; margin-left: 1rem; }
+
+.activity-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  align-items: flex-start;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.activity-card:hover { box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+
+.activity-time-col { min-width: 100px; }
+.time-input { padding: 8px; font-size: 0.85rem; border-radius: 8px; border: 1px solid #e2e8f0; }
+.activity-content { flex: 1; }
+.activity-content .form-control { border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 10px; font-size: 0.85rem; }
+
+.btn-remove-activity {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.btn-remove-activity:hover { background: #ef4444; color: white; }
+
+.btn-add-activity {
+  background: #f0f9ff;
+  color: #2563eb;
+  border: 2px dashed #bfdbfe;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.btn-add-activity:hover { background: #2563eb; color: white; border-color: #2563eb; }
+
+.day-notes textarea { border: 1px solid #e2e8f0; border-radius: 10px; font-size: 0.85rem; }
+
+.itinerary-table-section { margin-top: 1.5rem; }
+.itinerary-table-section h5 { font-weight: 700; color: #1e293b; margin-bottom: 1rem; }
+
+.itinerary-table th { background: #f8fafc; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; font-weight: 600; }
+.itinerary-table td { font-size: 0.85rem; vertical-align: middle; color: #374151; }
+
+.day-cell { background: #f0f9ff; color: #1d4ed8; font-weight: 700; font-size: 0.85rem; }
+.day-cell small { color: #60a5fa; font-weight: normal; }
+
+.act-type-badge {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}

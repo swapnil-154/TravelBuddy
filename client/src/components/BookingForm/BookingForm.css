@@ -1,0 +1,94 @@
+.booking-form {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 100px;
+}
+
+.booking-form-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.price-display {
+  background: linear-gradient(135deg, #f0f9ff, #ede9fe);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.price-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.price-amount {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.price-currency {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.booking-form .form-control {
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.booking-form .form-control:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn-book-now {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-book-now:hover {
+  opacity: 0.9;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+
+.booking-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #10b981;
+  font-weight: 500;
+}

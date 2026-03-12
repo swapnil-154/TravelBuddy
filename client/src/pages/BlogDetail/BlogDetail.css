@@ -1,0 +1,62 @@
+.blog-detail-page { min-height: 100vh; }
+
+.blog-detail-hero {
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.blog-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3rem;
+  color: white;
+}
+
+.blog-detail-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.blog-hero-tag { background: rgba(124,58,237,0.8); color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; }
+
+.blog-detail-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+
+.blog-detail-meta { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem; opacity: 0.85; }
+
+.author-info { display: flex; align-items: center; gap: 8px; }
+.author-av { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+.blog-content { font-size: 1.05rem; line-height: 1.9; color: #374151; margin-bottom: 2rem; white-space: pre-line; }
+
+.blog-actions-bar { display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; margin-bottom: 2rem; }
+
+.action-btn { background: #f8fafc; border: 1px solid #e2e8f0; color: #64748b; padding: 10px 20px; border-radius: 50px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; }
+.action-btn:hover, .action-btn.liked { background: #fee2e2; border-color: #ef4444; color: #ef4444; }
+
+.comments-section h4 { font-weight: 700; color: #1e293b; margin-bottom: 1.5rem; }
+
+.comment-form textarea { border: 2px solid #e2e8f0; border-radius: 12px; font-size: 0.9rem; }
+.comment-form textarea:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); outline: none; }
+
+.btn-comment { background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; border: none; border-radius: 10px; padding: 10px 24px; font-weight: 700; }
+.btn-comment:hover { opacity: 0.9; color: white; }
+
+.comment-item { display: flex; gap: 12px; margin-bottom: 1.25rem; }
+.comment-av { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #2563eb, #7c3aed); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+.comment-body { flex: 1; background: #f8fafc; border-radius: 12px; padding: 1rem; }
+.comment-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+.comment-header strong { font-size: 0.9rem; color: #1e293b; }
+.comment-header small { color: #94a3b8; }
+.comment-body p { color: #64748b; font-size: 0.9rem; margin: 0; }
+
+.blog-sidebar-sticky { position: sticky; top: 100px; }
+
+.author-card { background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06); text-align: center; margin-bottom: 1rem; }
+.author-card-av { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; font-size: 2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.author-card h5 { font-weight: 700; color: #1e293b; margin-bottom: 0.25rem; }
+.author-card p { color: #64748b; font-size: 0.85rem; margin: 0; }
+
+.related-dest { background: #f0f9ff; border-radius: 12px; padding: 1rem 1.25rem; }
+.related-dest h6 { font-weight: 700; color: #1d4ed8; margin-bottom: 0.5rem; }
+.related-dest a { color: #2563eb; text-decoration: none; font-weight: 600; }

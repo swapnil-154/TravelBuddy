@@ -1,0 +1,167 @@
+.footer {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #94a3b8;
+}
+
+.footer-top {
+  padding: 4rem 0 2rem;
+}
+
+.footer-brand h3 {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.footer-brand p {
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  color: #94a3b8;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-links a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.footer-title {
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+.footer-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  border-radius: 2px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.6rem;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+  color: #3b82f6;
+  padding-left: 5px;
+}
+
+.footer-desc {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.newsletter-form .form-control {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 10px 0 0 10px;
+  padding: 12px 16px;
+}
+
+.newsletter-form .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.newsletter-form .form-control:focus {
+  box-shadow: none;
+  border-color: #2563eb;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-newsletter {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 0 10px 10px 0;
+  padding: 12px 20px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn-newsletter:hover {
+  opacity: 0.9;
+  color: white;
+}
+
+.app-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.app-badge:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.footer-bottom {
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.footer-bottom a {
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+  color: #3b82f6;
+}
