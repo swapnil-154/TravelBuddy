@@ -1,0 +1,19 @@
+{
+  "name": "travelbuddy",
+  "version": "1.0.0",
+  "description": "TravelBuddy - Full Stack MERN Travel Planning & Booking Platform",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seed": "node server/seeds/seedData.js",
+    "install-all": "npm install && npm install --prefix server && npm install --prefix client"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

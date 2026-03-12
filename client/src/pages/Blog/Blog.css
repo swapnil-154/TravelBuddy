@@ -1,0 +1,70 @@
+.blog-page { min-height: 100vh; }
+
+.blog-hero {
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+  color: white;
+  padding: 8rem 0 3rem;
+  text-align: center;
+}
+
+.blog-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; }
+.blog-hero p { opacity: 0.85; font-size: 1.1rem; }
+
+.blog-sidebar { position: sticky; top: 100px; }
+
+.write-blog-cta {
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: white;
+}
+
+.write-blog-cta h5 { font-weight: 700; margin-bottom: 0.5rem; }
+.write-blog-cta p { opacity: 0.85; font-size: 0.85rem; margin-bottom: 1rem; }
+
+.btn-write-blog {
+  background: white;
+  color: #7c3aed;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-write-blog:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); color: #7c3aed; }
+
+.sidebar-widget {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.widget-title {
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cloud-tag {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cloud-tag:hover {
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  color: white;
+}

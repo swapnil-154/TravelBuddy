@@ -1,0 +1,181 @@
+.flight-search-page { min-height: 100vh; }
+
+.flight-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+  padding: 8rem 0 3rem;
+  color: white;
+}
+
+.flight-hero h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+.flight-hero p { opacity: 0.8; margin-bottom: 2rem; }
+
+.flight-search-form {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.flight-search-form label { color: rgba(255,255,255,0.7); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
+.flight-search-form .form-control {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.flight-search-form .form-control::placeholder { color: rgba(255,255,255,0.5); }
+.flight-search-form .form-control:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.2); background: rgba(255,255,255,0.15); }
+
+.btn-search-flights {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 36px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-search-flights:hover { opacity: 0.9; color: white; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,99,235,0.4); }
+
+.results-heading { color: #1e293b; margin-bottom: 1.5rem; }
+
+.flights-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.flight-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  flex-wrap: wrap;
+}
+
+.flight-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); transform: translateY(-2px); }
+
+.flight-airline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 150px;
+}
+
+.airline-logo {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.flight-airline strong { display: block; color: #1e293b; font-size: 0.95rem; }
+.flight-airline small { color: #94a3b8; font-size: 0.8rem; }
+
+.flight-route {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.flight-time { text-align: center; }
+.flight-time .time { display: block; font-size: 1.3rem; font-weight: 800; color: #1e293b; }
+.flight-time .city { font-size: 0.8rem; color: #64748b; font-weight: 600; }
+
+.flight-duration {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.duration-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  border-radius: 2px;
+  position: relative;
+}
+
+.duration-line::before, .duration-line::after {
+  content: '●';
+  position: absolute;
+  color: #2563eb;
+  font-size: 0.5rem;
+  top: -5px;
+}
+
+.duration-line::before { left: -2px; }
+.duration-line::after { right: -2px; }
+
+.flight-duration span { font-size: 0.85rem; font-weight: 600; color: #374151; }
+.flight-duration small { font-size: 0.75rem; color: #94a3b8; }
+
+.flight-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #64748b;
+  min-width: 100px;
+}
+
+.flight-class {
+  background: #f0f9ff;
+  color: #1d4ed8;
+  padding: 3px 8px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.flight-price {
+  text-align: right;
+  min-width: 130px;
+}
+
+.price-main { font-size: 1.8rem; font-weight: 800; color: #2563eb; }
+.price-main + small { color: #94a3b8; font-size: 0.8rem; }
+
+.total-price { font-size: 0.85rem; color: #64748b; margin: 4px 0; }
+
+.seats-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 50px;
+  margin-bottom: 8px;
+}
+
+.seats-badge.urgent { color: #ef4444; background: #fee2e2; }
+
+.btn-book-flight {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-book-flight:hover { opacity: 0.9; color: white; }
