@@ -2,7 +2,7 @@ import { call, put, takeLatest, debounce } from 'redux-saga/effects';
 import api from '../../services/api';
 import {
   fetchDestinationsRequest, fetchDestinationsSuccess, fetchDestinationsFailure,
-  fetchDestinationSuccess, setSearchResults,
+  fetchDestination, fetchDestinationSuccess, setSearchResults,
 } from '../slices/destinationSlice';
 
 function* fetchDestinationsSaga(action) {
@@ -40,6 +40,6 @@ function* searchDestinationsSaga(action) {
 
 export default function* searchSaga() {
   yield takeLatest(fetchDestinationsRequest.type, fetchDestinationsSaga);
-  yield takeLatest('destinations/fetchDestination', fetchDestinationSaga);
+  yield takeLatest(fetchDestination.type, fetchDestinationSaga);
   yield debounce(300, 'destinations/searchDestinations', searchDestinationsSaga);
 }

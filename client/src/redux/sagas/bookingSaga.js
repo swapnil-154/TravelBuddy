@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import api from '../../services/api';
 import {
+  searchFlights, searchHotels, createBooking,
   searchStart, searchError, setFlights, setHotels,
   fetchBookingsRequest, fetchBookingsSuccess, fetchBookingsFailure,
   createBookingSuccess,
@@ -53,8 +54,8 @@ function* createBookingSaga(action) {
 }
 
 export default function* bookingSaga() {
-  yield takeLatest('bookings/searchFlights', searchFlightsSaga);
-  yield takeLatest('bookings/searchHotels', searchHotelsSaga);
+  yield takeLatest(searchFlights.type, searchFlightsSaga);
+  yield takeLatest(searchHotels.type, searchHotelsSaga);
   yield takeLatest(fetchBookingsRequest.type, fetchBookingsSaga);
-  yield takeLatest('bookings/createBooking', createBookingSaga);
+  yield takeLatest(createBooking.type, createBookingSaga);
 }

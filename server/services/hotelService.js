@@ -5,6 +5,18 @@ const hotelNames = [
 const amenitiesList = ['WiFi', 'Pool', 'Gym', 'Spa', 'Restaurant', 'Bar', 'Parking', 'Room Service'];
 const roomTypes = ['Standard', 'Deluxe', 'Suite', 'Executive Suite', 'Penthouse'];
 
+// A curated set of Unsplash hotel images (stable, no source.unsplash.com)
+const hotelImages = [
+  'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+  'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80',
+  'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&q=80',
+  'https://images.unsplash.com/photo-1551882547-ff40c4fe0d0b?w=800&q=80',
+  'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80',
+  'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=80',
+  'https://images.unsplash.com/photo-1615460549969-36fa19521a4f?w=800&q=80',
+  'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=80',
+];
+
 exports.searchHotels = async ({ destination, checkIn, checkOut, guests = 1, rooms = 1 }) => {
   const numResults = Math.floor(Math.random() * 6) + 4;
   const hotels = [];
@@ -40,7 +52,7 @@ exports.searchHotels = async ({ destination, checkIn, checkOut, guests = 1, room
       rating: Number(rating),
       numReviews: Math.floor(Math.random() * 1000) + 50,
       amenities: selectedAmenities,
-      image: `https://source.unsplash.com/800x600/?hotel,${destination.replace(/\s+/g, '-')}`,
+      image: hotelImages[i % hotelImages.length],
       stars: Math.floor(Math.random() * 3) + 3,
       freeBreakfast: Math.random() > 0.5,
       freeCancellation: Math.random() > 0.4,

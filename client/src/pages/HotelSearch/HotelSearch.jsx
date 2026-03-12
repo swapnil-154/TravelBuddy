@@ -1,16 +1,29 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { searchHotels, setBookingData } from '../../redux/slices/bookingSlice';
 import Loading from '../../components/Loading/Loading';
 import './HotelSearch.css';
 
 const HotelSearch = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { hotels, loading, error } = useSelector((state) => state.bookings);
+  const { user } = useSelector((state) => state.auth);
   const [form, setForm] = useState({ destination: '', checkIn: '', checkOut: '', guests: 1, rooms: 1 });
 
   const handleSearch = (e) => {
     e.preventDefault();
-    dispatch({ type: 'bookings/searchHotels', payload: form });
+    dispatch(searchHotels(form));
+  };
+
+  const handleBook = (hotel) => {
+    dispatch(setBookingData({ selectedItem: hotel, type: 'hotel' }));
+    if (user) {
+      navigate('/booking');
+    } else {
+      navigate('/login');
+    }
   };
 
   return (
@@ -69,7 +82,7 @@ const HotelSearch = () => {
                 <div key={hotel.id} className="col-lg-4 col-md-6">
                   <div className="hotel-card card-hover">
                     <div className="hotel-image">
-                      <img src={`https://source.unsplash.com/400x250/?hotel,luxury`} alt={hotel.name} />
+                      <img src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80'} alt={hotel.name} />
                       <div className="hotel-stars">
                         {'★'.repeat(hotel.stars)}{'☆'.repeat(5 - hotel.stars)}
                       </div>
@@ -103,7 +116,7 @@ const HotelSearch = () => {
                         </div>
                         <div>
                           <div className="room-type">{hotel.roomType}</div>
-                          <button className="btn btn-book-hotel">Book Now</button>
+                          <button className="btn btn-book-hotel" onClick={() => handleBook(hotel)}>Book Now</button>
                         </div>
                       </div>
                     </div>

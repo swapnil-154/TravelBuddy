@@ -2,7 +2,10 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import api from '../../services/api';
 import {
   fetchTripsRequest, fetchTripsSuccess, fetchTripsFailure,
-  fetchTripSuccess, createTripSuccess, updateTripSuccess, deleteTripSuccess,
+  fetchTrip, fetchTripSuccess,
+  createTrip, createTripSuccess,
+  updateTrip, updateTripSuccess,
+  deleteTrip, deleteTripSuccess,
 } from '../slices/tripSlice';
 
 function* fetchTripsSaga() {
@@ -50,16 +53,10 @@ function* deleteTripSaga(action) {
   }
 }
 
-export const FETCH_TRIPS = 'trips/fetchTripsRequest';
-export const FETCH_TRIP = 'trips/fetchTrip';
-export const CREATE_TRIP = 'trips/createTrip';
-export const UPDATE_TRIP = 'trips/updateTrip';
-export const DELETE_TRIP = 'trips/deleteTrip';
-
 export default function* tripSaga() {
   yield takeLatest(fetchTripsRequest.type, fetchTripsSaga);
-  yield takeLatest('trips/fetchTrip', fetchTripSaga);
-  yield takeLatest('trips/createTrip', createTripSaga);
-  yield takeLatest('trips/updateTrip', updateTripSaga);
-  yield takeLatest('trips/deleteTrip', deleteTripSaga);
+  yield takeLatest(fetchTrip.type, fetchTripSaga);
+  yield takeLatest(createTrip.type, createTripSaga);
+  yield takeLatest(updateTrip.type, updateTripSaga);
+  yield takeLatest(deleteTrip.type, deleteTripSaga);
 }

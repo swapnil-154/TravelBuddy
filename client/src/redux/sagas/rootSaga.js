@@ -3,6 +3,7 @@ import authSaga from './authSaga';
 import tripSaga from './tripSaga';
 import bookingSaga from './bookingSaga';
 import searchSaga from './searchSaga';
+import blogSaga from './blogSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga() {
     tripSaga(),
     bookingSaga(),
     searchSaga(),
+    blogSaga(),
   ]);
 }

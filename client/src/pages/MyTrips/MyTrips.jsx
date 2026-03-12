@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import TripCard from '../../components/TripCard/TripCard';
 import Loading from '../../components/Loading/Loading';
-import { fetchTripsRequest } from '../../redux/slices/tripSlice';
+import { fetchTripsRequest, deleteTrip } from '../../redux/slices/tripSlice';
 import './MyTrips.css';
 
 const MyTrips = () => {
@@ -17,7 +17,7 @@ const MyTrips = () => {
 
   const handleDelete = (id) => {
     if (window.confirm('Delete this trip?')) {
-      dispatch({ type: 'trips/deleteTrip', payload: id });
+      dispatch(deleteTrip(id));
     }
   };
 
