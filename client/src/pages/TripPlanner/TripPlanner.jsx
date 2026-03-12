@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { createTrip, updateTrip, fetchTrip } from '../../redux/slices/tripSlice';
 import ExpenseSplitter from '../../components/ExpenseSplitter/ExpenseSplitter';
-import { getDaysBetween, getDateRangeArray } from '../../utils/dateHelpers';
+import { getDaysBetween, getDateRangeArray, toInputDateFormat } from '../../utils/dateHelpers';
 import './TripPlanner.css';
 
 const TripPlanner = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
+  const { trip: existingTrip } = useSelector((state) => state.trips);
   const prefillDest = location.state?.destination;
+  const isEditing = Boolean(id);
 
-  const [trip, setTrip] = useState({
+  const emptyTrip = {
     title: '',
     destinationName: prefillDest?.name || '',
     startDate: '',
@@ -22,9 +26,28 @@ const TripPlanner = () => {
     travelers: [{ name: user?.name || '', email: user?.email || '' }],
     days: [],
     status: 'planning',
-  });
+  };
 
+  const [trip, setTrip] = useState(emptyTrip);
   const [activeDay, setActiveDay] = useState(0);
+
+  // Load existing trip when editing
+  useEffect(() => {
+    if (isEditing) {
+      dispatch(fetchTrip(id));
+    }
+  }, [isEditing, id, dispatch]);
+
+  // Populate form when existing trip loads
+  useEffect(() => {
+    if (isEditing && existingTrip && existingTrip._id === id) {
+      setTrip({
+        ...existingTrip,
+        startDate: toInputDateFormat(existingTrip.startDate),
+        endDate: toInputDateFormat(existingTrip.endDate),
+      });
+    }
+  }, [isEditing, existingTrip, id]);
 
   const generateDays = () => {
     if (!trip.startDate || !trip.endDate) return;
@@ -70,7 +93,11 @@ const TripPlanner = () => {
       alert('Please fill in trip title and dates');
       return;
     }
-    dispatch({ type: 'trips/createTrip', payload: trip });
+    if (isEditing) {
+      dispatch(updateTrip({ id, data: trip }));
+    } else {
+      dispatch(createTrip(trip));
+    }
     navigate('/my-trips');
   };
 
@@ -91,8 +118,8 @@ const TripPlanner = () => {
     <div className="trip-planner-page">
       <div className="planner-hero">
         <div className="container">
-          <h1>🗺️ Trip Planner</h1>
-          <p>Build your perfect day-by-day itinerary</p>
+          <h1>🗺️ {isEditing ? 'Edit Trip' : 'Trip Planner'}</h1>
+          <p>{isEditing ? 'Update your trip details and itinerary' : 'Build your perfect day-by-day itinerary'}</p>
         </div>
       </div>
 
@@ -175,7 +202,7 @@ const TripPlanner = () => {
               )}
 
               <button className="btn btn-save-trip w-100 mt-3" onClick={handleSave}>
-                <i className="fas fa-save me-2"></i>Save Trip
+                <i className="fas fa-save me-2"></i>{isEditing ? 'Update Trip' : 'Save Trip'}
               </button>
             </div>
           </div>

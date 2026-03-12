@@ -11,6 +11,7 @@ const blogSlice = createSlice({
       state.total = action.payload.total;
     },
     fetchBlogsFailure: (state, action) => { state.loading = false; state.error = action.payload; },
+    fetchBlog: (state) => { state.loading = true; state.error = null; state.blog = null; },
     fetchBlogSuccess: (state, action) => { state.loading = false; state.blog = action.payload; },
     createBlogSuccess: (state, action) => { state.blogs.unshift(action.payload); },
     updateBlogSuccess: (state, action) => {
@@ -28,7 +29,8 @@ const blogSlice = createSlice({
 
 export const {
   fetchBlogsRequest, fetchBlogsSuccess, fetchBlogsFailure,
-  fetchBlogSuccess, createBlogSuccess, updateBlogSuccess, deleteBlogSuccess, updateBlogLikes,
+  fetchBlog, fetchBlogSuccess,
+  createBlogSuccess, updateBlogSuccess, deleteBlogSuccess, updateBlogLikes,
 } = blogSlice.actions;
 
 export default blogSlice.reducer;

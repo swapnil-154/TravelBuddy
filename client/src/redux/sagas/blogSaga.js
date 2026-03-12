@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import api from '../../services/api';
 import {
   fetchBlogsRequest, fetchBlogsSuccess, fetchBlogsFailure,
-  fetchBlogSuccess,
+  fetchBlog, fetchBlogSuccess,
 } from '../slices/blogSlice';
 
 function* fetchBlogsSaga(action) {
@@ -27,5 +27,5 @@ function* fetchBlogSaga(action) {
 
 export default function* blogSaga() {
   yield takeLatest(fetchBlogsRequest.type, fetchBlogsSaga);
-  yield takeLatest('blogs/fetchBlog', fetchBlogSaga);
+  yield takeLatest(fetchBlog.type, fetchBlogSaga);
 }

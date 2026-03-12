@@ -20,7 +20,7 @@ const TripCard = ({ trip, onDelete }) => {
           src={
             trip.destination?.images?.[0] ||
             trip.coverImage ||
-            `https://source.unsplash.com/800x400/?travel,${(trip.destinationName || 'travel').replace(/\s+/g, '-')}`
+            'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80'
           }
           alt={trip.title}
         />
