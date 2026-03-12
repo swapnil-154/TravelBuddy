@@ -13,7 +13,7 @@ exports.createPaymentIntent = async (req, res) => {
     if (!process.env.STRIPE_SECRET_KEY) {
       // Return a mock payment intent for development/demo
       console.log('[Payment] Stripe not configured. Returning mock payment intent.');
-      const mockPaymentId = 'mock_pi_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+      const mockPaymentId = 'mock_pi_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 11);
       return res.json({
         success: true,
         clientSecret: 'mock_secret_' + mockPaymentId,
