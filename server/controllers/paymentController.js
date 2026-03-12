@@ -3,7 +3,12 @@ const Booking = require('../models/Booking');
 // Initialize Stripe if configured
 const getStripe = () => {
   if (process.env.STRIPE_SECRET_KEY) {
-    return require('stripe')(process.env.STRIPE_SECRET_KEY);
+    try {
+      return require('stripe')(process.env.STRIPE_SECRET_KEY);
+    } catch (err) {
+      console.warn('[Payment] Stripe module not available:', err.message);
+      return null;
+    }
   }
   return null;
 };
