@@ -3,6 +3,7 @@ import api from '../../services/api';
 import {
   loginRequest, loginSuccess, loginFailure,
   registerRequest, registerSuccess, registerFailure,
+  loadUserFromToken, updateUserSuccess,
 } from '../slices/authSlice';
 
 function* loginSaga(action) {
@@ -23,7 +24,21 @@ function* registerSaga(action) {
   }
 }
 
+function* loadUserSaga() {
+  try {
+    const { data } = yield call(api.get, '/auth/me');
+    if (data.user) {
+      yield put(updateUserSuccess(data.user));
+    }
+  } catch (error) {
+    // Token is invalid or expired; clear storage
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(loginRequest.type, loginSaga);
   yield takeLatest(registerRequest.type, registerSaga);
+  yield takeLatest(loadUserFromToken.type, loadUserSaga);
 }

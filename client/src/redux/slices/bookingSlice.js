@@ -18,6 +18,9 @@ const bookingSlice = createSlice({
     fetchBookingsRequest: (state) => { state.loading = true; state.error = null; },
     fetchBookingsSuccess: (state, action) => { state.loading = false; state.bookings = action.payload; },
     fetchBookingsFailure: (state, action) => { state.loading = false; state.error = action.payload; },
+    searchFlights: (state) => { state.loading = true; state.error = null; },
+    searchHotels: (state) => { state.loading = true; state.error = null; },
+    createBooking: (state) => { state.loading = true; state.error = null; },
     setFlights: (state, action) => { state.flights = action.payload; state.loading = false; },
     setHotels: (state, action) => { state.hotels = action.payload; state.loading = false; },
     searchStart: (state) => { state.loading = true; state.error = null; },
@@ -40,6 +43,7 @@ const bookingSlice = createSlice({
 
 export const {
   fetchBookingsRequest, fetchBookingsSuccess, fetchBookingsFailure,
+  searchFlights, searchHotels, createBooking,
   setFlights, setHotels, searchStart, searchError,
   setStep, setBookingData, createBookingSuccess, clearBookingError,
 } = bookingSlice.actions;

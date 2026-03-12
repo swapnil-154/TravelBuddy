@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchDestination } from '../../redux/slices/destinationSlice';
 import WeatherWidget from '../../components/WeatherWidget/WeatherWidget';
 import ReviewCard from '../../components/ReviewCard/ReviewCard';
 import Loading from '../../components/Loading/Loading';
@@ -14,7 +15,7 @@ const DestinationDetail = () => {
   const [reviews, setReviews] = React.useState([]);
 
   useEffect(() => {
-    dispatch({ type: 'destinations/fetchDestination', payload: id });
+    dispatch(fetchDestination(id));
     api.get(`/reviews/destination/${id}`).then(({ data }) => setReviews(data.reviews));
   }, [dispatch, id]);
 

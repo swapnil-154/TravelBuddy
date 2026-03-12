@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { searchFlights, setBookingData } from '../../redux/slices/bookingSlice';
 import Loading from '../../components/Loading/Loading';
 import './FlightSearch.css';
 
 const FlightSearch = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { flights, loading, error } = useSelector((state) => state.bookings);
+  const { user } = useSelector((state) => state.auth);
   const [form, setForm] = useState({
     from: '',
     to: '',
@@ -16,11 +20,16 @@ const FlightSearch = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    dispatch({ type: 'bookings/searchFlights', payload: form });
+    dispatch(searchFlights(form));
   };
 
   const handleBook = (flight) => {
-    dispatch({ type: 'bookings/setBookingData', payload: { selectedItem: flight, type: 'flight' } });
+    dispatch(setBookingData({ selectedItem: flight, type: 'flight' }));
+    if (user) {
+      navigate('/booking');
+    } else {
+      navigate('/login');
+    }
   };
 
   return (

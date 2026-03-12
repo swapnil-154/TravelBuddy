@@ -22,6 +22,7 @@ const destinationSlice = createSlice({
       state.currentPage = action.payload.currentPage;
     },
     fetchDestinationsFailure: (state, action) => { state.loading = false; state.error = action.payload; },
+    fetchDestination: (state) => { state.loading = true; state.error = null; state.destination = null; },
     fetchDestinationSuccess: (state, action) => { state.loading = false; state.destination = action.payload; },
     setSearchResults: (state, action) => { state.searchResults = action.payload; },
     clearSearchResults: (state) => { state.searchResults = []; },
@@ -30,7 +31,7 @@ const destinationSlice = createSlice({
 
 export const {
   fetchDestinationsRequest, fetchDestinationsSuccess, fetchDestinationsFailure,
-  fetchDestinationSuccess, setSearchResults, clearSearchResults,
+  fetchDestination, fetchDestinationSuccess, setSearchResults, clearSearchResults,
 } = destinationSlice.actions;
 
 export default destinationSlice.reducer;

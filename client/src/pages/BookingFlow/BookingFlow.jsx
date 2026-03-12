@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { createBooking } from '../../redux/slices/bookingSlice';
 import './BookingFlow.css';
 
 const STEPS = ['Select', 'Details', 'Payment', 'Confirmation'];
@@ -22,10 +23,12 @@ const BookingFlow = () => {
   const confirmBooking = () => {
     const code = 'TB' + Math.random().toString(36).slice(2, 10).toUpperCase();
     setConfirmed({ code, date: new Date().toLocaleDateString() });
-    dispatch({
-      type: 'bookings/createBooking',
-      payload: { type: bookingType, details: { ...details, ...selectedItem }, passengerInfo: details },
-    });
+    dispatch(createBooking({
+      type: bookingType,
+      totalCost: selectedItem?.totalPrice || selectedItem?.pricePerNight || 0,
+      details: { ...selectedItem },
+      passengerInfo: details,
+    }));
   };
 
   if (!selectedItem) {
