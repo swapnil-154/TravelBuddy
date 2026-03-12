@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import api from '../../services/api';
 import './AgentDashboard.css';
 
@@ -8,11 +8,7 @@ const AgentDashboard = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchData();
-  }, [activeTab]);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       if (activeTab === 'overview') {
@@ -26,7 +22,11 @@ const AgentDashboard = () => {
       console.error('Failed to fetch agent data:', error);
     }
     setLoading(false);
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleStatusChange = async (bookingId, status) => {
     try {
