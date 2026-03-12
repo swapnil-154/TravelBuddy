@@ -1,3 +1,20 @@
+const Booking = require('../models/Booking');
+
+// Initialize Stripe if configured
+const getStripe = () => {
+  if (process.env.STRIPE_SECRET_KEY) {
+    return require('stripe')(process.env.STRIPE_SECRET_KEY);
+  }
+  return null;
+};
+
+// Generate a unique mock payment ID for demo/development mode
+const generateMockPaymentId = () => {
+  const timestamp = Date.now().toString(36);
+  const randomPart = Math.random().toString(36).substring(2, 11);
+  return 'mock_pi_' + timestamp + randomPart;
+};
+
 // @desc    Create payment intent
 // @route   POST /api/payments/create-intent
 // @access  Private
@@ -9,11 +26,13 @@ exports.createPaymentIntent = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Valid amount is required' });
     }
 
+    const stripe = getStripe();
+
     // Check if Stripe is configured
-    if (!process.env.STRIPE_SECRET_KEY) {
+    if (!stripe) {
       // Return a mock payment intent for development/demo
       console.log('[Payment] Stripe not configured. Returning mock payment intent.');
-      const mockPaymentId = 'mock_pi_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 11);
+      const mockPaymentId = generateMockPaymentId();
       return res.json({
         success: true,
         clientSecret: 'mock_secret_' + mockPaymentId,
@@ -22,8 +41,6 @@ exports.createPaymentIntent = async (req, res) => {
         message: 'Stripe not configured. Using mock payment for demo.',
       });
     }
-
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // Convert to cents
@@ -59,7 +76,6 @@ exports.confirmPayment = async (req, res) => {
     if (paymentId.startsWith('mock_pi_')) {
       console.log(`[Payment] Mock payment confirmed: ${paymentId}`);
       if (bookingId) {
-        const Booking = require('../models/Booking');
         await Booking.findByIdAndUpdate(bookingId, {
           paymentStatus: 'paid',
           paymentId,
@@ -74,16 +90,15 @@ exports.confirmPayment = async (req, res) => {
       });
     }
 
-    if (!process.env.STRIPE_SECRET_KEY) {
+    const stripe = getStripe();
+    if (!stripe) {
       return res.status(500).json({ success: false, message: 'Stripe not configured' });
     }
 
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentId);
 
     if (paymentIntent.status === 'succeeded') {
       if (bookingId) {
-        const Booking = require('../models/Booking');
         await Booking.findByIdAndUpdate(bookingId, {
           paymentStatus: 'paid',
           paymentId: paymentIntent.id,

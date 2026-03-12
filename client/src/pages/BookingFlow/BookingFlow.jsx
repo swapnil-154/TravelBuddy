@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createBooking } from '../../redux/slices/bookingSlice';
 import api from '../../services/api';
 import './BookingFlow.css';
 
@@ -9,7 +8,6 @@ const STEPS = ['Select', 'Details', 'Payment', 'Confirmation'];
 
 const BookingFlow = () => {
   const { selectedItem, bookingType } = useSelector((state) => state.bookings);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [details, setDetails] = useState({ firstName: '', lastName: '', email: '', phone: '', specialRequests: '' });
@@ -42,11 +40,8 @@ const BookingFlow = () => {
       });
 
       if (confirmData.status === 'succeeded') {
-        // Step 3: Create booking with payment info
-        const code = 'TB' + Math.random().toString(36).slice(2, 10).toUpperCase();
-        setConfirmed({ code, date: new Date().toLocaleDateString() });
-
-        dispatch(createBooking({
+        // Step 3: Create booking with payment info via API
+        const { data: bookingData } = await api.post('/bookings', {
           type: bookingType,
           totalCost,
           details: { ...selectedItem },
@@ -55,7 +50,12 @@ const BookingFlow = () => {
           paymentId: paymentData.paymentId,
           paymentStatus: 'paid',
           status: 'confirmed',
-        }));
+        });
+
+        setConfirmed({
+          code: bookingData.booking.confirmationCode,
+          date: new Date().toLocaleDateString(),
+        });
       } else {
         setPaymentError('Payment could not be completed. Please try again.');
         setStep(2);
