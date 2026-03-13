@@ -62,7 +62,7 @@ const Login = () => {
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 required
-                autoComplete="new-password"
+                autoComplete="current-password"
               />
             </div>
 
