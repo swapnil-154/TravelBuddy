@@ -36,7 +36,7 @@ const Login = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="auth-form">
+          <form onSubmit={handleSubmit} className="auth-form" autoComplete="off">
             <div className="form-group">
               <label><i className="fas fa-envelope me-2"></i>Email Address</label>
               <input
@@ -46,13 +46,14 @@ const Login = () => {
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 required
+                autoComplete="off"
               />
             </div>
 
             <div className="form-group">
               <div className="d-flex justify-content-between">
                 <label><i className="fas fa-lock me-2"></i>Password</label>
-                <span className="forgot-link">Forgot password?</span>
+                <Link to="/forgot-password" className="forgot-link">Forgot password?</Link>
               </div>
               <input
                 type="password"
@@ -61,6 +62,7 @@ const Login = () => {
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 required
+                autoComplete="current-password"
               />
             </div>
 
@@ -72,10 +74,6 @@ const Login = () => {
               )}
             </button>
           </form>
-
-          <div className="demo-credentials">
-            <p><strong>Demo:</strong> admin@travelbuddy.com / Admin@123</p>
-          </div>
 
           <p className="auth-switch">
             Don't have an account? <Link to="/register">Sign up free</Link>

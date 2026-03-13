@@ -235,13 +235,15 @@ const seedDB = async () => {
     const createdDestinations = await Destination.insertMany(destinations);
     console.log(`Seeded ${createdDestinations.length} destinations`);
 
-    // Create admin user
-    const adminExists = await User.findOne({ email: 'admin@travelbuddy.com' });
+    // Create admin user from environment variables
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@travelbuddy.com';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin@123';
+    const adminExists = await User.findOne({ email: adminEmail });
     if (!adminExists) {
       const admin = await User.create({
         name: 'Admin User',
-        email: 'admin@travelbuddy.com',
-        password: 'Admin@123',
+        email: adminEmail,
+        password: adminPassword,
         role: 'admin',
       });
       console.log('Admin user created:', admin.email);
@@ -280,19 +282,21 @@ const seedDB = async () => {
     }
 
     console.log('\n✅ Database seeded successfully!');
-    console.log('Admin login: admin@travelbuddy.com / Admin@123');
+    console.log('Admin login: Use ADMIN_EMAIL and ADMIN_PASSWORD from your .env file');
 
-    const agentExists = await User.findOne({ email: 'agent@travelbuddy.com' });
+    const agentEmail = process.env.AGENT_EMAIL || 'agent@travelbuddy.com';
+    const agentPassword = process.env.AGENT_PASSWORD || 'Agent@123';
+    const agentExists = await User.findOne({ email: agentEmail });
     if (!agentExists) {
       const agent = await User.create({
         name: 'Agent User',
-        email: 'agent@travelbuddy.com',
-        password: 'Agent@123',
+        email: agentEmail,
+        password: agentPassword,
         role: 'agent',
       });
       console.log('Agent user created:', agent.email);
     }
-    console.log('Agent login: agent@travelbuddy.com / Agent@123');
+    console.log('Agent login: Use AGENT_EMAIL and AGENT_PASSWORD from your .env file');
 
     process.exit(0);
   } catch (error) {

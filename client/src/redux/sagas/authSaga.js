@@ -4,6 +4,8 @@ import {
   loginRequest, loginSuccess, loginFailure,
   registerRequest, registerSuccess, registerFailure,
   loadUserFromToken, updateUserSuccess,
+  forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFailure,
+  resetPasswordRequest, resetPasswordSuccess, resetPasswordFailure,
 } from '../slices/authSlice';
 
 function* loginSaga(action) {
@@ -37,8 +39,28 @@ function* loadUserSaga() {
   }
 }
 
+function* forgotPasswordSaga(action) {
+  try {
+    const { data } = yield call(api.post, '/auth/forgot-password', action.payload);
+    yield put(forgotPasswordSuccess(data.message));
+  } catch (error) {
+    yield put(forgotPasswordFailure(error.response?.data?.message || 'Failed to send reset email'));
+  }
+}
+
+function* resetPasswordSaga(action) {
+  try {
+    const { data } = yield call(api.post, '/auth/reset-password', action.payload);
+    yield put(resetPasswordSuccess(data.message));
+  } catch (error) {
+    yield put(resetPasswordFailure(error.response?.data?.message || 'Failed to reset password'));
+  }
+}
+
 export default function* authSaga() {
   yield takeLatest(loginRequest.type, loginSaga);
   yield takeLatest(registerRequest.type, registerSaga);
   yield takeLatest(loadUserFromToken.type, loadUserSaga);
+  yield takeLatest(forgotPasswordRequest.type, forgotPasswordSaga);
+  yield takeLatest(resetPasswordRequest.type, resetPasswordSaga);
 }

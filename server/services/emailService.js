@@ -66,4 +66,49 @@ const sendBookingConfirmationEmail = async (booking, userEmail, userName) => {
   }
 };
 
-module.exports = { sendBookingConfirmationEmail };
+const sendPasswordResetEmail = async (userEmail, userName, otp) => {
+  const transporter = createTransporter();
+  if (!transporter) {
+    console.log('[Email Service] Email not configured. Skipping password reset email.');
+    console.log(`[Email Service] Would send password reset OTP to: ${userEmail}`);
+    console.log(`[Email Service] OTP: ${otp}`);
+    return { sent: false, reason: 'Email service not configured' };
+  }
+
+  try {
+    const mailOptions = {
+      from: process.env.EMAIL_FROM || '"TravelBuddy" <noreply@travelbuddy.com>',
+      to: userEmail,
+      subject: 'Password Reset - TravelBuddy',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+            <h1 style="color: white; margin: 0;">✈️ TravelBuddy</h1>
+            <p style="color: rgba(255,255,255,0.9); margin-top: 5px;">Password Reset</p>
+          </div>
+          <div style="padding: 30px; background: #f8f9fa; border: 1px solid #e9ecef;">
+            <h2 style="color: #333;">Hello ${userName}!</h2>
+            <p style="color: #666;">You requested a password reset. Use the OTP below to reset your password:</p>
+            <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #e9ecef; text-align: center;">
+              <p style="font-size: 32px; font-weight: bold; color: #667eea; letter-spacing: 8px; margin: 0;">${otp}</p>
+            </div>
+            <p style="color: #666;">This OTP is valid for <strong>15 minutes</strong>.</p>
+            <p style="color: #999; font-size: 13px;">If you did not request this, please ignore this email.</p>
+          </div>
+          <div style="padding: 15px; text-align: center; background: #333; border-radius: 0 0 10px 10px;">
+            <p style="color: #999; margin: 0; font-size: 12px;">© ${new Date().getFullYear()} TravelBuddy. All rights reserved.</p>
+          </div>
+        </div>
+      `,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`[Email Service] Password reset OTP sent to ${userEmail}: ${info.messageId}`);
+    return { sent: true, messageId: info.messageId };
+  } catch (error) {
+    console.error('[Email Service] Failed to send password reset email:', error.message);
+    return { sent: false, reason: error.message };
+  }
+};
+
+module.exports = { sendBookingConfirmationEmail, sendPasswordResetEmail };
