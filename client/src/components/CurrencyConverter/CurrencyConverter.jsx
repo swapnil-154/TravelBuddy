@@ -1,26 +1,70 @@
-import React, { useState } from 'react';
-import { convert, getCurrencies } from '../../utils/currencyConverter';
+import React, { useState, useEffect, useCallback } from 'react';
+import api from '../../services/api';
+import { getCurrencies, convert as localConvert } from '../../utils/currencyConverter';
 import './CurrencyConverter.css';
+
+const RATE_REFRESH_INTERVAL = 60 * 60 * 1000; // Refresh rates every hour
 
 const CurrencyConverter = () => {
   const [amount, setAmount] = useState(100);
   const [fromCurrency, setFromCurrency] = useState('USD');
   const [toCurrency, setToCurrency] = useState('EUR');
-  const currencies = getCurrencies();
+  const [rates, setRates] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const result = convert(amount, fromCurrency, toCurrency);
-  const rate = convert(1, fromCurrency, toCurrency);
+  const fetchRates = useCallback(async () => {
+    try {
+      const { data } = await api.get('/currency/rates');
+      if (data.success && data.rates) {
+        setRates(data.rates);
+        setLastUpdated(data.lastUpdated);
+      }
+    } catch (err) {
+      console.error('Failed to fetch live rates, using local fallback');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchRates();
+    const interval = setInterval(fetchRates, RATE_REFRESH_INTERVAL);
+    return () => clearInterval(interval);
+  }, [fetchRates]);
+
+  const currencies = rates ? Object.keys(rates).sort() : getCurrencies();
+
+  const convertAmount = (amt, from, to) => {
+    if (rates && rates[from] && rates[to]) {
+      const fromRate = rates[from];
+      const toRate = rates[to];
+      return Number(((amt / fromRate) * toRate).toFixed(2));
+    }
+    return localConvert(amt, from, to);
+  };
+
+  const result = convertAmount(amount, fromCurrency, toCurrency);
+  const rate = convertAmount(1, fromCurrency, toCurrency);
 
   const swapCurrencies = () => {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
   };
 
+  const formatLastUpdated = () => {
+    if (!lastUpdated) return '';
+    const date = new Date(lastUpdated);
+    return date.toLocaleString();
+  };
+
   return (
     <div className="currency-converter">
       <div className="converter-header">
         <h4><i className="fas fa-exchange-alt me-2"></i>Currency Converter</h4>
-        <p className="converter-subtitle">Live exchange rates</p>
+        <p className="converter-subtitle">
+          {loading ? 'Loading rates...' : 'Live exchange rates'}
+        </p>
       </div>
 
       <div className="converter-body">
@@ -85,7 +129,9 @@ const CurrencyConverter = () => {
         <div className="converter-rate">
           <i className="fas fa-info-circle me-1"></i>
           1 {fromCurrency} = {rate} {toCurrency}
-          <span className="rate-update ms-2">• Simulated rates</span>
+          {lastUpdated && (
+            <span className="rate-update ms-2">• Updated: {formatLastUpdated()}</span>
+          )}
         </div>
       </div>
     </div>
