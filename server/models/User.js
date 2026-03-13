@@ -39,6 +39,14 @@ const UserSchema = new mongoose.Schema(
       budgetRange: { type: String, default: 'medium' },
       preferredActivities: [{ type: String }],
     },
+    resetPasswordOtp: {
+      type: String,
+      select: false,
+    },
+    resetPasswordExpire: {
+      type: Date,
+      select: false,
+    },
   },
   { timestamps: true }
 );

@@ -18,6 +18,7 @@ import BlogDetail from './pages/BlogDetail/BlogDetail';
 import Profile from './pages/Profile/Profile';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import NotFound from './pages/NotFound/NotFound';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import AgentDashboard from './pages/AgentDashboard/AgentDashboard';
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Protected Routes */}
         <Route path="/trip-planner" element={<ProtectedRoute><TripPlanner /></ProtectedRoute>} />

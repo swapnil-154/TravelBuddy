@@ -427,9 +427,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 👨‍💻 Demo Credentials
 
-After running the seed script, you can log in with:
-- **Admin:** `admin@travelbuddy.com` / `Admin@123`
-- **User:** `john@example.com` / `User@123`
+After running the seed script, you can log in with the admin credentials configured via environment variables (`ADMIN_EMAIL` and `ADMIN_PASSWORD` in your `.env` file).
 
 ---
 

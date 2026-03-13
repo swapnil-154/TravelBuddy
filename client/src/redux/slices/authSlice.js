@@ -12,6 +12,7 @@ const authSlice = createSlice({
     token: tokenFromStorage,
     loading: false,
     error: null,
+    message: null,
   },
   reducers: {
     loginRequest: (state) => { state.loading = true; state.error = null; },
@@ -43,16 +44,25 @@ const authSlice = createSlice({
       localStorage.setItem('user', JSON.stringify(action.payload));
     },
     clearError: (state) => { state.error = null; },
+    clearMessage: (state) => { state.message = null; },
     loadUserFromToken: (state) => {
       // Token-based re-hydration is handled by saga; this is a no-op trigger
     },
+    forgotPasswordRequest: (state) => { state.loading = true; state.error = null; state.message = null; },
+    forgotPasswordSuccess: (state, action) => { state.loading = false; state.message = action.payload; },
+    forgotPasswordFailure: (state, action) => { state.loading = false; state.error = action.payload; },
+    resetPasswordRequest: (state) => { state.loading = true; state.error = null; state.message = null; },
+    resetPasswordSuccess: (state, action) => { state.loading = false; state.message = action.payload; },
+    resetPasswordFailure: (state, action) => { state.loading = false; state.error = action.payload; },
   },
 });
 
 export const {
   loginRequest, loginSuccess, loginFailure,
   registerRequest, registerSuccess, registerFailure,
-  logout, updateUserSuccess, clearError, loadUserFromToken,
+  logout, updateUserSuccess, clearError, clearMessage, loadUserFromToken,
+  forgotPasswordRequest, forgotPasswordSuccess, forgotPasswordFailure,
+  resetPasswordRequest, resetPasswordSuccess, resetPasswordFailure,
 } = authSlice.actions;
 
 export default authSlice.reducer;
