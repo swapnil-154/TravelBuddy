@@ -91,7 +91,7 @@ cp .env.example .env
 nano .env  # or use your editor of choice
 ```
 
-**Required `.env` variables:**
+**Required `.env` variables** (the app will not start without these):
 ```env
 PORT=5000
 MONGO_URI=mongodb://localhost:27017/travelbuddy
@@ -100,6 +100,8 @@ JWT_EXPIRE=30d
 NODE_ENV=development
 CLIENT_URL=http://localhost:3000
 ```
+
+> **Note:** No external API keys are needed to run the app. Stripe, Twilio, and Email settings in `.env.example` are optional — the app uses mock/fallback services when they are not configured. See the [Environment Variables](#-environment-variables) section for details.
 
 ### 4. Seed the Database (Optional)
 ```bash
@@ -295,14 +297,77 @@ TravelBuddy/
 
 ## 🔧 Environment Variables
 
+### Required
+
+These variables are needed for the app to start and function:
+
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `PORT` | Server port | `5000` |
-| `MONGO_URI` | MongoDB connection string | `mongodb://localhost:27017/travelbuddy` |
-| `JWT_SECRET` | Secret key for JWT signing | — |
+| `MONGO_URI` | MongoDB connection string (local or [Atlas](https://www.mongodb.com/atlas)) | `mongodb://localhost:27017/travelbuddy` |
+| `JWT_SECRET` | Secret key for JWT signing - use any long random string | None (must be set) |
 | `JWT_EXPIRE` | JWT token expiry duration | `30d` |
-| `NODE_ENV` | Environment (`development`/`production`) | `development` |
+| `NODE_ENV` | Environment (`development` / `production`) | `development` |
 | `CLIENT_URL` | Frontend URL for CORS | `http://localhost:3000` |
+
+### Optional (Third-Party Services)
+
+> **No external API keys are required to run TravelBuddy.** The app includes built-in mock services for flights, hotels, weather, and currency conversion. The optional keys below enable real third-party integrations — if they are not set, the app will gracefully fall back to mock/demo mode.
+
+| Variable | Service | Purpose | Fallback if not set |
+|----------|---------|---------|---------------------|
+| `STRIPE_SECRET_KEY` | [Stripe](https://stripe.com) | Process real payments | Mock payment IDs are generated |
+| `STRIPE_PUBLISHABLE_KEY` | [Stripe](https://stripe.com) | Client-side Stripe integration | Mock payment mode |
+| `EMAIL_HOST` | SMTP provider | Send email notifications | Emails are skipped and logged to console |
+| `EMAIL_PORT` | SMTP provider | SMTP port | Emails are skipped and logged to console |
+| `EMAIL_SECURE` | SMTP provider | Use TLS | Emails are skipped and logged to console |
+| `EMAIL_USER` | SMTP provider | SMTP username | Emails are skipped and logged to console |
+| `EMAIL_PASS` | SMTP provider | SMTP password / app password | Emails are skipped and logged to console |
+| `EMAIL_FROM` | SMTP provider | "From" address on emails | Emails are skipped and logged to console |
+| `TWILIO_ACCOUNT_SID` | [Twilio](https://twilio.com) | Send SMS notifications | SMS skipped and logged to console |
+| `TWILIO_AUTH_TOKEN` | [Twilio](https://twilio.com) | Twilio authentication | SMS skipped and logged to console |
+| `TWILIO_PHONE_NUMBER` | [Twilio](https://twilio.com) | Sender phone number | SMS skipped and logged to console |
+
+---
+
+## 🗄️ Viewing the Database
+
+TravelBuddy uses **MongoDB**. Here are several ways to view and manage your data:
+
+### Option 1 — MongoDB Compass (Recommended GUI)
+1. Download and install [MongoDB Compass](https://www.mongodb.com/products/compass) (free).
+2. Open Compass and enter your connection string (the same `MONGO_URI` from your `.env` file):
+   ```
+   mongodb://localhost:27017/travelbuddy
+   ```
+3. Click **Connect**. You will see the `travelbuddy` database with collections such as `users`, `destinations`, `itineraries`, `bookings`, `reviews`, `blogs`, and `userpreferences`.
+
+### Option 2 — `mongosh` (Mongo Shell)
+```bash
+# Connect to the database
+mongosh "mongodb://localhost:27017/travelbuddy"
+
+# List all collections
+show collections
+
+# View all destinations
+db.destinations.find().pretty()
+
+# View all users (passwords are hashed)
+db.users.find().pretty()
+
+# Count documents in a collection
+db.bookings.countDocuments()
+```
+
+### Option 3 — MongoDB Atlas (Cloud)
+If you are using [MongoDB Atlas](https://www.mongodb.com/atlas) instead of a local database:
+1. Log in to your Atlas dashboard at https://cloud.mongodb.com.
+2. Navigate to **Database → Browse Collections** to view your data in the browser.
+3. Use the Atlas connection string in your `.env` file:
+   ```
+   MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/travelbuddy
+   ```
 
 ---
 
