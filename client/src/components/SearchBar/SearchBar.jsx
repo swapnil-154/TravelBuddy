@@ -86,7 +86,7 @@ const SearchBar = ({ placeholder = 'Search destinations...', large = false }) =>
               onClick={() => handleSelect(destination)}
             >
               <div className="result-image">
-                <img src={destination.images?.[0] || 'https://via.placeholder.com/50'} alt={destination.name} />
+                <img src={destination.images?.[0] || 'https://via.placeholder.com/50'} alt={destination.name} loading="lazy" decoding="async" />
               </div>
               <div className="result-info">
                 <span className="result-name">{destination.name}</span>

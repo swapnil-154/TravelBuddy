@@ -73,7 +73,7 @@ const Destinations = () => {
                   <Link to={`/destinations/${dest._id}`} className="dest-card-link">
                     <div className="dest-card card-hover animate-fade-in-up" style={{ animationDelay: `${index * 0.05}s` }}>
                       <div className="dest-card-img">
-                        <img src={dest.images?.[0] || 'https://via.placeholder.com/400x250'} alt={dest.name} />
+                        <img src={dest.images?.[0] || 'https://via.placeholder.com/400x250'} alt={dest.name} loading="lazy" decoding="async" />
                         {dest.featured && <span className="featured-badge">✨ Featured</span>}
                         <span className={`cat-badge cat-${dest.category}`}>{dest.category}</span>
                       </div>

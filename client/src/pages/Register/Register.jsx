@@ -114,7 +114,7 @@ const Register = () => {
         </div>
 
         <div className="auth-visual">
-          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80" alt="Travel" />
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80" alt="Travel" loading="lazy" decoding="async" />
           <div className="auth-visual-overlay">
             <h3>"Not all those who wander are lost."</h3>
             <p>— J.R.R. Tolkien</p>

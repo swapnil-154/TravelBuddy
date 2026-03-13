@@ -82,7 +82,7 @@ const HotelSearch = () => {
                 <div key={hotel.id} className="col-lg-4 col-md-6">
                   <div className="hotel-card card-hover">
                     <div className="hotel-image">
-                      <img src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80'} alt={hotel.name} />
+                      <img src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80'} alt={hotel.name} loading="lazy" decoding="async" />
                       <div className="hotel-stars">
                         {'★'.repeat(hotel.stars)}{'☆'.repeat(5 - hotel.stars)}
                       </div>

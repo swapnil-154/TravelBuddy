@@ -147,7 +147,7 @@ const Home = () => {
                   <Link to={`/destinations/${dest._id}`} className="destination-card-link">
                     <div className="destination-card card-hover animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                       <div className="dest-image">
-                        <img src={dest.images?.[0] || 'https://via.placeholder.com/400x300'} alt={dest.name} />
+                        <img src={dest.images?.[0] || 'https://via.placeholder.com/400x300'} alt={dest.name} loading="lazy" decoding="async" />
                         {dest.featured && <span className="badge-featured">Featured</span>}
                         <div className="dest-overlay">
                           <div className="dest-info">
