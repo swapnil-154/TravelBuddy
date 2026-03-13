@@ -138,9 +138,10 @@ exports.forgotPassword = async (req, res) => {
     const hashedOtp = crypto.createHash('sha256').update(otp).digest('hex');
 
     // Save hashed OTP and expiry (15 minutes) to user
-    user.resetPasswordOtp = hashedOtp;
-    user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
-    await user.save({ validateBeforeSave: false });
+    await User.updateOne(
+      { _id: user._id },
+      { resetPasswordOtp: hashedOtp, resetPasswordExpire: Date.now() + 15 * 60 * 1000 }
+    );
 
     // Send OTP via email
     const emailResult = await sendPasswordResetEmail(email, user.name, otp);
@@ -149,9 +150,10 @@ exports.forgotPassword = async (req, res) => {
       res.json({ success: true, message: 'Password reset OTP sent to your email' });
     } else {
       // Clear the OTP if email failed
-      user.resetPasswordOtp = undefined;
-      user.resetPasswordExpire = undefined;
-      await user.save({ validateBeforeSave: false });
+      await User.updateOne(
+        { _id: user._id },
+        { $unset: { resetPasswordOtp: 1, resetPasswordExpire: 1 } }
+      );
       res.status(500).json({ success: false, message: 'Failed to send reset email. Please try again later.' });
     }
   } catch (error) {
