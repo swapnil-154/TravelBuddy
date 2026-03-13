@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDestinationsRequest } from '../../redux/slices/destinationSlice';
-import { fetchBlogsRequest } from '../../redux/slices/blogSlice';
 import ParallaxHero from '../../components/ParallaxHero/ParallaxHero';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import DestinationCarousel from '../../components/DestinationCarousel/DestinationCarousel';

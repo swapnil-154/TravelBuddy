@@ -52,7 +52,7 @@ const Login = () => {
             <div className="form-group">
               <div className="d-flex justify-content-between">
                 <label><i className="fas fa-lock me-2"></i>Password</label>
-                <a href="#" className="forgot-link">Forgot password?</a>
+                <span className="forgot-link">Forgot password?</span>
               </div>
               <input
                 type="password"

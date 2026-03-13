@@ -9,7 +9,7 @@ const categories = ['all', 'beach', 'city', 'mountain', 'cultural', 'adventure',
 
 const Destinations = () => {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { destinations, loading, total, pages, currentPage } = useSelector((state) => state.destinations);
   const [activeCategory, setActiveCategory] = useState('all');
   const [sortBy, setSortBy] = useState('');
@@ -20,7 +20,7 @@ const Destinations = () => {
     if (activeCategory !== 'all') params.category = activeCategory;
     if (sortBy) params.sort = sortBy;
     dispatch(fetchDestinationsRequest(params));
-  }, [dispatch, activeCategory, sortBy]);
+  }, [dispatch, activeCategory, sortBy, currentPage]);
 
   return (
     <div className="destinations-page">
