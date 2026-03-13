@@ -22,7 +22,8 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       const url = error.config?.url || '';
       // Don't redirect for auth endpoints — let the saga handle login/register errors
-      if (!url.includes('/auth/login') && !url.includes('/auth/register')) {
+      const isAuthEndpoint = url === '/auth/login' || url === '/auth/register';
+      if (!isAuthEndpoint) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.href = '/login';
