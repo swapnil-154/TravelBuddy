@@ -81,7 +81,7 @@ const Login = () => {
         </div>
 
         <div className="auth-visual">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Travel" />
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Travel" decoding="async" />
           <div className="auth-visual-overlay">
             <h3>"The world is a book, and those who do not travel read only one page."</h3>
             <p>— Saint Augustine</p>

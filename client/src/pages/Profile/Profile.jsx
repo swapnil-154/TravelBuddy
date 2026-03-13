@@ -28,7 +28,7 @@ const Profile = () => {
           <div className="profile-hero-content">
             <div className="profile-avatar-large">
               {user?.avatar && user.avatar.startsWith('http') ? (
-                <img src={user.avatar} alt={user.name} />
+                <img src={user.avatar} alt={user.name} loading="lazy" decoding="async" />
               ) : (
                 <span>{user?.name?.charAt(0)?.toUpperCase()}</span>
               )}
@@ -50,7 +50,7 @@ const Profile = () => {
               <div className="avatar-preview">
                 <div className="avatar-circle">
                   {form.avatar && form.avatar.startsWith('http') ? (
-                    <img src={form.avatar} alt="Preview" />
+                    <img src={form.avatar} alt="Preview" loading="lazy" decoding="async" />
                   ) : (
                     <span>{user?.name?.charAt(0)?.toUpperCase()}</span>
                   )}

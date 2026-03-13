@@ -88,7 +88,7 @@ const Navbar = () => {
                 >
                   <div className="user-avatar">
                     {user.avatar && user.avatar.startsWith('http') ? (
-                      <img src={user.avatar} alt={user.name} />
+                      <img src={user.avatar} alt={user.name} loading="lazy" decoding="async" />
                     ) : (
                       <span>{user.name?.charAt(0)?.toUpperCase()}</span>
                     )}

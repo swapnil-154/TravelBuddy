@@ -28,6 +28,8 @@ const DestinationCarousel = ({ destinations = [] }) => {
                 src={dest.images?.[0] || 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1400&q=80'}
                 className="carousel-img"
                 alt={dest.name}
+                loading="lazy"
+                decoding="async"
               />
               <div className="carousel-gradient-overlay"></div>
             </div>

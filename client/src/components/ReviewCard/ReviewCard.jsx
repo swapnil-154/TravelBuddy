@@ -15,7 +15,7 @@ const ReviewCard = ({ review }) => {
         <div className="reviewer-info">
           <div className="reviewer-avatar">
             {review.user?.avatar && review.user.avatar.startsWith('http') ? (
-              <img src={review.user.avatar} alt={review.user?.name} />
+              <img src={review.user.avatar} alt={review.user?.name} loading="lazy" decoding="async" />
             ) : (
               <span>{review.user?.name?.charAt(0)?.toUpperCase() || 'U'}</span>
             )}
@@ -37,7 +37,7 @@ const ReviewCard = ({ review }) => {
       {review.images?.length > 0 && (
         <div className="review-images">
           {review.images.slice(0, 3).map((img, index) => (
-            <img key={index} src={img} alt={`Review ${index + 1}`} />
+            <img key={index} src={img} alt={`Review ${index + 1}`} loading="lazy" decoding="async" />
           ))}
         </div>
       )}

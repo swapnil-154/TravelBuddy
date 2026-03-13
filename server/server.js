@@ -38,8 +38,13 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-// Static files for uploads
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// Static files for uploads with caching headers
+app.use('/uploads', express.static(path.join(__dirname, '../uploads'), {
+  maxAge: '7d',
+  etag: true,
+  lastModified: true,
+  immutable: true,
+}));
 
 // API Routes
 app.use('/api/auth', authRoutes);

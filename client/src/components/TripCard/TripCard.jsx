@@ -23,6 +23,8 @@ const TripCard = ({ trip, onDelete }) => {
             'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80'
           }
           alt={trip.title}
+          loading="lazy"
+          decoding="async"
         />
         <div className="trip-card-overlay">
           <span className={`badge bg-${statusColor[trip.status] || 'secondary'} status-badge`}>

@@ -15,7 +15,7 @@ const ImageGallery = ({ images = [], title = '' }) => {
             className={`gallery-grid-item ${idx === 0 ? 'gallery-grid-main' : ''} ${images.length === 1 ? 'gallery-single' : ''}`}
             onClick={() => setActiveIndex(idx)}
           >
-            <img src={img} alt={`${title} ${idx + 1}`} loading="lazy" />
+            <img src={img} alt={`${title} ${idx + 1}`} loading="lazy" decoding="async" />
             {idx === 4 && images.length > 5 && (
               <div className="gallery-more-overlay">
                 +{images.length - 5} more

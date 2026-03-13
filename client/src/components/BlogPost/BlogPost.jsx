@@ -12,6 +12,8 @@ const BlogPost = ({ blog, compact = false }) => {
           src={blog.coverImage || 'https://via.placeholder.com/800x400'}
           alt={blog.title}
           className="blog-image"
+          loading="lazy"
+          decoding="async"
         />
         <div className="blog-overlay">
           {blog.tags?.slice(0, 2).map((tag) => (

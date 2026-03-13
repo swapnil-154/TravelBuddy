@@ -57,7 +57,7 @@ const DestinationDetail = () => {
                 <div className="gallery-grid">
                   {destination.images.slice(0, 4).map((img, i) => (
                     <div key={i} className={`gallery-item ${i === 0 ? 'gallery-main' : ''}`}>
-                      <img src={img} alt={`${destination.name} ${i + 1}`} />
+                      <img src={img} alt={`${destination.name} ${i + 1}`} loading="lazy" decoding="async" />
                     </div>
                   ))}
                 </div>
