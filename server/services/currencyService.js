@@ -37,7 +37,8 @@ const fetchLiveRates = async () => {
 fetchLiveRates();
 
 // Refresh rates automatically every 24 hours
-setInterval(fetchLiveRates, CACHE_TTL_MS);
+const refreshInterval = setInterval(fetchLiveRates, CACHE_TTL_MS);
+refreshInterval.unref(); // Allow the process to exit naturally
 
 const getCurrentRates = () => cachedRates;
 
