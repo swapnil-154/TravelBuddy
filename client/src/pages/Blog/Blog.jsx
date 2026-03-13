@@ -8,7 +8,7 @@ import './Blog.css';
 
 const Blog = () => {
   const dispatch = useDispatch();
-  const { blogs, loading, total } = useSelector((state) => state.blogs);
+  const { blogs, loading } = useSelector((state) => state.blogs);
   const { user } = useSelector((state) => state.auth);
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState({ title: '', content: '', coverImage: '', destinationName: '', tags: '', readTime: 5 });

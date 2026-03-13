@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { convert, getCurrencies, formatCurrency } from '../../utils/currencyConverter';
+import { convert, getCurrencies } from '../../utils/currencyConverter';
 import './CurrencyConverter.css';
 
 const CurrencyConverter = () => {

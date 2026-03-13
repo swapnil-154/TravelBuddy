@@ -13,11 +13,11 @@ const Footer = () => {
                 <h3><span>✈️</span> TravelBuddy</h3>
                 <p>Your ultimate travel companion. Plan trips, discover destinations, book hotels & flights, and share your travel stories with the world.</p>
                 <div className="social-links">
-                  <a href="#" aria-label="Facebook"><i className="fab fa-facebook-f"></i></a>
-                  <a href="#" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-                  <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-                  <a href="#" aria-label="YouTube"><i className="fab fa-youtube"></i></a>
-                  <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin-in"></i></a>
+                  <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
+                  <a href="https://twitter.com" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a>
+                  <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
+                  <a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
+                  <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin-in"></i></a>
                 </div>
               </div>
             </div>
@@ -36,11 +36,11 @@ const Footer = () => {
             <div className="col-lg-2 col-md-6 col-6">
               <h5 className="footer-title">Company</h5>
               <ul className="footer-links">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Press</a></li>
-                <li><a href="#">Partners</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><Link to="/about">About Us</Link></li>
+                <li><Link to="/careers">Careers</Link></li>
+                <li><Link to="/press">Press</Link></li>
+                <li><Link to="/partners">Partners</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
               </ul>
             </div>
 
@@ -60,8 +60,8 @@ const Footer = () => {
               <div className="mt-3">
                 <p className="footer-desc mb-2"><strong>Download our app:</strong></p>
                 <div className="d-flex gap-2">
-                  <a href="#" className="app-badge"><i className="fab fa-apple me-1"></i> App Store</a>
-                  <a href="#" className="app-badge"><i className="fab fa-google-play me-1"></i> Play Store</a>
+                  <span className="app-badge"><i className="fab fa-apple me-1"></i> App Store</span>
+                  <span className="app-badge"><i className="fab fa-google-play me-1"></i> Play Store</span>
                 </div>
               </div>
             </div>
@@ -76,11 +76,11 @@ const Footer = () => {
               <p>&copy; {new Date().getFullYear()} TravelBuddy. All rights reserved.</p>
             </div>
             <div className="col-md-6 text-md-end">
-              <a href="#">Privacy Policy</a>
+              <Link to="/privacy">Privacy Policy</Link>
               <span className="mx-2">|</span>
-              <a href="#">Terms of Service</a>
+              <Link to="/terms">Terms of Service</Link>
               <span className="mx-2">|</span>
-              <a href="#">Cookie Policy</a>
+              <Link to="/cookies">Cookie Policy</Link>
             </div>
           </div>
         </div>
